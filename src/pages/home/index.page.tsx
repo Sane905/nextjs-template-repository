@@ -20,6 +20,7 @@ import { useConfirm } from '@/hooks/useConfirm';
 import { resolve } from 'dns';
 import { CustomModal } from '@/components/modal';
 import { useCustomModal } from '@/hooks/useCustomModal';
+import { count } from 'console';
 
 type Props = {
 	token: string;
@@ -34,7 +35,7 @@ const Page: NextPage = () => {
 	const onPress = useCallback(() => {
 		console.log('222');
 		setCount(count + 1);
-	}, []);
+	}, [count]);
 
 	const fetcher = async (url: string) => {
 		const da = {
@@ -99,12 +100,16 @@ const Page: NextPage = () => {
 	const close = useCallback(() => {
 		onClose();
 		window.alert('キャンセルなので何もしない。');
-	}, []);
+	}, [onClose]);
 
 	const moreOpen = useCallback(() => {
 		onClose();
 		window.alert('ここで登録処理を実行。');
-	}, []);
+	}, [onClose]);
+
+	useEffect(() => {
+		setCount(count + 1);
+	}, [count]);
 
 	return (
 		<Stack>
