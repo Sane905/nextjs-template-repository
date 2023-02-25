@@ -20,7 +20,6 @@ import { useConfirm } from '@/hooks/useConfirm';
 import { resolve } from 'dns';
 import { CustomModal } from '@/components/modal';
 import { useCustomModal } from '@/hooks/useCustomModal';
-import { count } from 'console';
 
 type Props = {
 	token: string;
@@ -40,8 +39,7 @@ const Page: NextPage = () => {
 	const fetcher = async (url: string) => {
 		const da = {
 			grant_type: 'refresh_token',
-			refresh_token:
-				'APJWN8c1eMZCCzalzMwSB9Nvp1JTTlOfDLlRo2t6015FFhfHQceKaJpJRJFHPqSBqSXJv3oR9r3XmDWrCocicrCxI3UWokLoi9upOq22M1hjMWPVWuCHC7h9J3WPEhUY1unBZV46LYBjASmB6vzUgpQVpRTJaSDX8TXrZB0QD0Jsa4ijpIyJ0yzt1yyUAD1FowwXrMakNaZjNfOQ2Nifh9As4IzXRc1tTw',
+			refresh_token: process.env.NEXT_PUBLIC_REFRESH_TOKEN,
 		};
 		const method = {
 			method: 'POST',
@@ -52,7 +50,7 @@ const Page: NextPage = () => {
 	};
 
 	const params = {
-		key: 'AIzaSyBT2JcCn_ox1e9jXDs2Nvly-DAfUmfsUKM',
+		key: process.env.NEXT_PUBLIC_FIREBASE_TOKEN ?? '',
 	};
 	const queryParams = new URLSearchParams(params);
 	const { data, error, isLoading } = useSWR(
@@ -107,10 +105,6 @@ const Page: NextPage = () => {
 		window.alert('ここで登録処理を実行。');
 	}, [onClose]);
 
-	useEffect(() => {
-		setCount(count + 1);
-	}, [count]);
-
 	return (
 		<Stack>
 			<Text>aaaaa</Text>
@@ -136,8 +130,9 @@ const Page: NextPage = () => {
 	);
 };
 
-// export async function getServerSideProps() {
+// export async function getStaticProps() {
 // 	// Fetch data from external API
+
 // 	const params = {
 // 		key: 'AIzaSyBT2JcCn_ox1e9jXDs2Nvly-DAfUmfsUKM',
 // 	};
@@ -153,11 +148,11 @@ const Page: NextPage = () => {
 // 		body: JSON.stringify(da),
 // 	};
 
-// 	const res = await fetch(
+// 	const response = await fetch(
 // 		`https://securetoken.googleapis.com/v1/token?${queryParams}`,
 // 		method,
 // 	);
-// 	const data = await res.json();
+// 	const data = await response.json();
 // 	const token = data.access_token as string;
 // 	// Pass data to the page via props
 // 	return { props: { token } };
