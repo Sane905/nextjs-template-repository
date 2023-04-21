@@ -5,4 +5,5 @@
     "source.addMissingImports": true
   },
   "editor.defaultFormatter": "rome.rome",
+  "rome.requireConfiguration": true,
 }
